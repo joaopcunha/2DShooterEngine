@@ -16,14 +16,18 @@ public class Enemy extends Entity{
 	private int frames = 0, maxFrames = 10, animationIndex, maxAnimationIndex = 2;
 
 	private BufferedImage[] sprites;
+	private BufferedImage damagedSprite;
+	private int damageFrames = 0;
 	
 	private int life = 10;
+	private boolean isDamaged = false;
 	
 	public Enemy(int x, int y, int width, int height, BufferedImage sprite) {
 		super(x, y, width, height, sprite);
 		sprites = new BufferedImage[2];
 		sprites[0] = Game.spritesheet.getSprite(112, 16, 16, 16);
 		sprites[1] = Game.spritesheet.getSprite(112+16, 16, 16, 16);
+		damagedSprite = Game.spritesheet.getSprite(112+32, 16, 16, 16);
 	}
 	
 	public void tick() {
@@ -67,6 +71,14 @@ public class Enemy extends Entity{
 		if(life <= 0) {
 			destroySelf();
 		}
+		
+		if (isDamaged) {
+			this.damageFrames ++;
+			if (this.damageFrames == 8) {
+				this.damageFrames = 0;
+				isDamaged = false;
+			}
+		}
 	}
 	
 	public void destroySelf() {
@@ -85,6 +97,7 @@ public class Enemy extends Entity{
 			Entity e = Game.bullets.get(i);
 			if(e instanceof Bullet) {
 				if(Entity.isColliding(this, e)) {
+					isDamaged = true;
 					life-=5;
 					Game.bullets.remove(i);
 					return;
@@ -112,7 +125,12 @@ public class Enemy extends Entity{
 	}
 	
 	public void render(Graphics g) {
-		g.drawImage(sprites[animationIndex], this.getX() - Camera.x, this.getY() - Camera.y, null);
+		if (!isDamaged) {
+			g.drawImage(sprites[animationIndex], this.getX() - Camera.x, this.getY() - Camera.y, null);
+		} else {
+			g.drawImage(damagedSprite, this.getX() - Camera.x, this.getY() - Camera.y, null);
+		}
+		
 	}
 
 }
