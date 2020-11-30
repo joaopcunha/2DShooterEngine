@@ -17,6 +17,8 @@ public class Enemy extends Entity{
 
 	private BufferedImage[] sprites;
 	
+	private int life = 10;
+	
 	public Enemy(int x, int y, int width, int height, BufferedImage sprite) {
 		super(x, y, width, height, sprite);
 		sprites = new BufferedImage[2];
@@ -59,6 +61,16 @@ public class Enemy extends Entity{
 				animationIndex = 0;
 			}
 		}
+		
+		collideBullet();
+		
+		if(life <= 0) {
+			destroySelf();
+		}
+	}
+	
+	public void destroySelf() {
+		Game.entities.remove(this);
 	}
 	
 	public boolean isCollidingWithPlayer() {
@@ -66,6 +78,19 @@ public class Enemy extends Entity{
 		Rectangle player = new Rectangle(Game.player.getX(), Game.player.getY(), 16, 16);
 		
 		return enemyCurrent.intersects(player);
+	}
+	
+	public void collideBullet() {
+		for(int i = 0; i < Game.bullets.size(); i++) {
+			Entity e = Game.bullets.get(i);
+			if(e instanceof Bullet) {
+				if(Entity.isColliding(this, e)) {
+					life-=5;
+					Game.bullets.remove(i);
+					return;
+				}
+			}
+		}
 	}
 	
 	public boolean isColliding(int xnext, int ynext) {
