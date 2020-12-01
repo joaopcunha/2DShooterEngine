@@ -50,17 +50,25 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	
 	public static UI ui;
 	
+	private int CUR_LEVEL = 1, MAX_LEVEL = 2;
+	
 	public Game() {
 		rand = new Random();
 		addKeyListener(this);
 		addMouseListener(this);
 		this.setPreferredSize(new Dimension(WIDTH*SCALE, HEIGHT*SCALE));
 		initFrame();
-		initGame();
+		restart();
 	}
 	
 	public static void restart() {
 		initGame();
+		world = new World("/level1.png");
+	}
+	
+	public static void changeLevel(String nextLevel) {
+		initGame();
+		world = new World("/"+nextLevel);
 	}
 	
 	private static void initGame() {
@@ -72,7 +80,6 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		player = new Player(0, 0, 16, 16, spritesheet);
 		entities.add(player);
 		bullets = new ArrayList<Bullet>();
-		world = new World("/map.png");
 	}
 
 	public void initFrame() {
@@ -115,6 +122,15 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		for(int i=0; i<bullets.size();i++) {
 			Bullet b = bullets.get(i);
 			b.tick();
+		}
+		
+		if (enemies.size() == 0) {
+			CUR_LEVEL++;
+			if(CUR_LEVEL>MAX_LEVEL) {
+				//Venceu o jogo
+			}
+			String newWorld = "level"+CUR_LEVEL+".png";
+			changeLevel(newWorld);
 		}
 	}
 	
