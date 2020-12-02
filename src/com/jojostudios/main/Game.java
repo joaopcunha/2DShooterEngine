@@ -33,7 +33,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	private boolean isRunning;
 	public static final int WIDTH = 240; 
 	public static final int HEIGHT = 160;
-	private final int SCALE = 3;
+	public static final int SCALE = 3;
 	
 	private static BufferedImage image;
 	
@@ -49,6 +49,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public static Random rand;
 	
 	public static UI ui;
+	public static String gameState = "game_over";
 	
 	private int CUR_LEVEL = 1, MAX_LEVEL = 2;
 	
@@ -66,9 +67,10 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		world = new World("/level1.png");
 	}
 	
-	public static void changeLevel(String nextLevel) {
+	public static void changeLevel(int nextLevel) {
 		initGame();
-		world = new World("/"+nextLevel);
+		String newWorld = "level"+nextLevel+".png";
+		world = new World("/"+newWorld);
 	}
 	
 	private static void initGame() {
@@ -114,24 +116,28 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	}
 	
 	public void tick() {
-		for(int i=0; i < entities.size(); i++) {
-			Entity e = entities.get(i);
-			e.tick();
-		}
-		
-		for(int i=0; i<bullets.size();i++) {
-			Bullet b = bullets.get(i);
-			b.tick();
-		}
-		
-		if (enemies.size() == 0) {
-			CUR_LEVEL++;
-			if(CUR_LEVEL>MAX_LEVEL) {
-				//Venceu o jogo
+		if (gameState == "normal") {
+			for(int i=0; i < entities.size(); i++) {
+				Entity e = entities.get(i);
+				e.tick();
 			}
-			String newWorld = "level"+CUR_LEVEL+".png";
-			changeLevel(newWorld);
+			
+			for(int i=0; i<bullets.size();i++) {
+				Bullet b = bullets.get(i);
+				b.tick();
+			}
+			
+			if (enemies.size() == 0) {
+				CUR_LEVEL++;
+				if(CUR_LEVEL>MAX_LEVEL) {
+					CUR_LEVEL = 1;
+				}
+				changeLevel(CUR_LEVEL);
+			}
+		} else if (gameState == "game_over") {
+			System.out.println("Game Over");
 		}
+		
 	}
 	
 	public void render() {
@@ -163,6 +169,11 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0, WIDTH*SCALE, HEIGHT*SCALE, null);
 		ui.render(g);
+		
+		if (gameState == "game_over") {
+			ui.renderGameOver(g);
+		}
+		
 		bs.show();
 	}
 	
@@ -214,6 +225,11 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			player.shoot();
+		}
+		
+		if (gameState == "game_over" && e.getKeyCode() == KeyEvent.VK_ENTER) {
+			gameState = "normal";
+			changeLevel(CUR_LEVEL);
 		}
 		
 	}

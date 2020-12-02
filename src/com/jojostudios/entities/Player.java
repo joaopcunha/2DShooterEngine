@@ -102,7 +102,7 @@ public class Player extends Entity{
 		}
 		
 		if (life <= 0 ) {
-			Game.restart();
+			Game.gameState = "game_over";
 			return;
 		}
 		
