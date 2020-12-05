@@ -50,7 +50,8 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	
 	public static UI ui;
 	public static Menu menu;
-	public static String gameState = "normal";
+	public static Pause pause;
+	public static String gameState = "menu";
 	
 	private int CUR_LEVEL = 1, MAX_LEVEL = 2;
 	
@@ -84,6 +85,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		entities.add(player);
 		bullets = new ArrayList<Bullet>();
 		menu = new Menu();
+		pause = new Pause();
 	}
 
 	public void initFrame() {
@@ -140,6 +142,9 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			System.out.println("Game Over");
 		} else if (gameState == "menu") {
 			menu.tick();
+		} else if (gameState == "pause") {
+			System.out.println("OLAA");
+			pause.tick();
 		}
 		
 	}
@@ -178,6 +183,8 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			ui.renderGameOver(g);
 		} else if (gameState == "menu") {
 			menu.render(g);
+		} else if (gameState == "pause") {
+			pause.render(g);
 		}
 		
 		bs.show();
@@ -217,23 +224,29 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if(e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) {
-			player.right = true;
-		} else if(e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) {
-			player.left = true;
+		if (gameState == "normal") {
+			if(e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) {
+				player.right = true;
+			} else if(e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) {
+				player.left = true;
+			}
+			
+			if(e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W) {
+				player.up = true;
+			} else if(e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S) {
+				player.down = true;
+			}
+			
+			if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+				player.shoot();
+			}
+			
+			if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+				gameState = "pause";
+			}
 		}
 		
-		if(e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W) {
-			player.up = true;
-		} else if(e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S) {
-			player.down = true;
-		}
-		
-		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-			player.shoot();
-		}
-		
-		if (gameState == "game_over" && e.getKeyCode() == KeyEvent.VK_ENTER) {
+		if (gameState == "game_over" && e.getKeyCode() == KeyEvent.VK_SPACE) {
 			changeLevel(CUR_LEVEL);
 			gameState = "normal";
 		}
@@ -244,6 +257,23 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			}
 			else if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W) {
 				menu.up = true;
+			}
+			
+			if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+				menu.enter = true;
+			}
+		}
+		
+		if (gameState == "pause") {
+			if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S) {
+				pause.down = true;
+			}
+			else if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W) {
+				pause.up = true;
+			}
+			
+			if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+				pause.enter = true;
 			}
 		}
 		

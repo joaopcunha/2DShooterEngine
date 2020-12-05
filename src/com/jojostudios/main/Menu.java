@@ -3,13 +3,20 @@ package com.jojostudios.main;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 public class Menu {
 	
-	public String[] options = {"New game", "Load game", "Exit"};
-	public int currentOption = 0;
-	public int maxOption = options.length - 1;
-	public boolean up, down;
+	public String[] options;
+	public int currentOption;
+	public int maxOption;
+	public boolean up, down, enter;
+	
+	public Menu() {
+		options = new String[] {"New game", "Load game", "Exit"};
+		currentOption = 0;
+		maxOption = options.length - 1;
+	}
 	
 	public void tick() {
 		if (up) {
@@ -26,6 +33,18 @@ public class Menu {
 				currentOption = 0;
 			}
 			down = false;
+		}
+		
+		if (enter) {
+			if(options[currentOption] == "New game" || options[currentOption] == "Continue") {
+				Game.gameState = "normal";
+			}
+			enter = false;
+			
+			if(options[currentOption] == "Exit") {
+				System.exit(1);;
+			}
+			enter = false;
 		}
 	}
 	
@@ -46,5 +65,6 @@ public class Menu {
 			}
 		}
 	}
+	
 
 }

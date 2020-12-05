@@ -29,7 +29,7 @@ public class UI {
 		g.setColor(Color.white);
 		g.drawString("Game Over", (Game.WIDTH*Game.SCALE/2)-60, (Game.HEIGHT*Game.SCALE/2)-28);
 		g.setFont(new Font("arial", Font.BOLD, 20));
-		g.drawString("Press enter to continue", (Game.WIDTH*Game.SCALE/2)-76, (Game.HEIGHT*Game.SCALE/2)+10);
+		g.drawString("Press space to continue", (Game.WIDTH*Game.SCALE/2)-76, (Game.HEIGHT*Game.SCALE/2)+10);
 	}
 
 }
