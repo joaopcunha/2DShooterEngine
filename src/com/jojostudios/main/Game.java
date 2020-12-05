@@ -20,9 +20,8 @@ import com.jojostudios.entities.Bullet;
 import com.jojostudios.entities.Enemy;
 import com.jojostudios.entities.Entity;
 import com.jojostudios.entities.Player;
-import com.jojostudios.graficos.Spritesheet;
-import com.jojostudios.graficos.UI;
-import com.jojostudios.world.Camera;
+import com.jojostudios.graphics.Spritesheet;
+import com.jojostudios.graphics.UI;
 import com.jojostudios.world.World;
 
 public class Game extends Canvas implements Runnable, KeyListener, MouseListener{

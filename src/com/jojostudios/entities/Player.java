@@ -3,7 +3,7 @@ package com.jojostudios.entities;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import com.jojostudios.graficos.Spritesheet;
+import com.jojostudios.graphics.Spritesheet;
 import com.jojostudios.main.Game;
 import com.jojostudios.world.Camera;
 import com.jojostudios.world.World;

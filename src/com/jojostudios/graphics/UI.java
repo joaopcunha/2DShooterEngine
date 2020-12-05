@@ -1,4 +1,4 @@
-package com.jojostudios.graficos;
+package com.jojostudios.graphics;
 
 import java.awt.Color;
 import java.awt.Font;
