@@ -243,6 +243,10 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 				gameState = "pause";
 			}
+			
+			if (e.getKeyCode() == KeyEvent.VK_E) {
+				player.dodge = true;
+			}
 		}
 		
 		if (gameState == "game_over" && e.getKeyCode() == KeyEvent.VK_SPACE) {

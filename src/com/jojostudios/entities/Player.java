@@ -13,7 +13,8 @@ public class Player extends Entity{
 	public boolean right, up, left, down;
 	public int right_dir = 0, left_dir = 1;
 	public int dir = right_dir;
-	public double speed = 1;
+	public double defaultSpeed = 1;
+	public double speed = defaultSpeed;
 	
 	private int frames = 0, maxFrames = 10, animationIndex, maxAnimationIndex = 4;
 	private boolean moving;
@@ -24,6 +25,7 @@ public class Player extends Entity{
 	private boolean hasGun = false;
 	private BufferedImage gunRight;
 	private BufferedImage gunLeft;
+	private BufferedImage dodgeSprite;
 	
 	public double life = 100;
 	public double maxLife = 100;
@@ -31,7 +33,12 @@ public class Player extends Entity{
 	public int ammo = 0;
 	public boolean isDamaged = false;
 	private int damageFrames = 0;
-
+	
+	public boolean dodge = false;
+	public boolean isDodging = false;
+	public int dodgeFrames = 0, maxDodgeFrames = 10, dodgeSpeed = 3;
+	public boolean isInvulnerable = false;
+	
 	public Player(int x, int y, int width, int height, Spritesheet spritesheet) {
 		super(x, y, width, height, spritesheet);
 		
@@ -51,6 +58,10 @@ public class Player extends Entity{
 		this.gunRight = spritesheet.getSprite(8*16, 0, 16, 16);
 		this.gunLeft = spritesheet.getSprite(9*16, 0, 16, 16);
 		
+	}
+	
+	public void setSpeed(double speed) {
+		this.speed = speed;
 	}
 	
 	public void tick() {
@@ -85,6 +96,21 @@ public class Player extends Entity{
 				
 				if(animationIndex == maxAnimationIndex) {
 					animationIndex = 0;
+				}
+			}
+		}
+		
+		if (dodge) {
+			isInvulnerable = true;
+			speed = dodgeSpeed;
+			if(dodgeFrames < maxDodgeFrames) {
+				System.out.println(dodgeFrames);
+				dodgeFrames++;
+				if (dodgeFrames == maxDodgeFrames) {
+					dodgeFrames = 0;
+					speed = defaultSpeed;
+					dodge = false;
+					isInvulnerable = false;
 				}
 			}
 		}
