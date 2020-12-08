@@ -36,7 +36,7 @@ public class Player extends Entity{
 	
 	public boolean dodge = false;
 	public boolean isDodging = false;
-	public int dodgeFrames = 0, maxDodgeFrames = 10, dodgeSpeed = 3;
+	public int dodgeFrames = 0, maxDodgeFrames = 16, dodgeSpeed = 3;
 	public boolean isInvulnerable = false;
 	
 	public Player(int x, int y, int width, int height, Spritesheet spritesheet) {

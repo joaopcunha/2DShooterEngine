@@ -50,9 +50,9 @@ public class Enemy extends Entity{
 			
 			
 		} else {
-			if (Game.rand.nextInt(100) < 10) {
+			if (Game.rand.nextInt(100) < 25) {
 				if (!Game.player.isInvulnerable) {
-					Game.player.life--;
+					Game.player.life-=5;
 					Game.player.isDamaged = true;
 				}
 			}

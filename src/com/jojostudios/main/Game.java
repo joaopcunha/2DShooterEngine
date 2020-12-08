@@ -52,7 +52,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public static Pause pause;
 	public static String gameState = "menu";
 	
-	private int CUR_LEVEL = 1, MAX_LEVEL = 2;
+	public static int CUR_LEVEL = 1, MAX_LEVEL = 2;
 	
 	public Game() {
 		rand = new Random();
@@ -72,6 +72,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		initGame();
 		String newWorld = "level"+nextLevel+".png";
 		world = new World("/"+newWorld);
+		CUR_LEVEL=nextLevel;
 	}
 	
 	private static void initGame() {
