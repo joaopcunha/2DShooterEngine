@@ -25,7 +25,8 @@ public class Player extends Entity{
 	private boolean hasGun = false;
 	private BufferedImage gunRight;
 	private BufferedImage gunLeft;
-	private BufferedImage dodgeSprite;
+	private BufferedImage dodgeSpriteRight;
+	private BufferedImage dodgeSpriteLeft;
 	
 	public double life = 100;
 	public double maxLife = 100;
@@ -36,8 +37,10 @@ public class Player extends Entity{
 	
 	public boolean dodge = false;
 	public boolean isDodging = false;
-	public int dodgeFrames = 0, maxDodgeFrames = 16, dodgeSpeed = 3;
+	public int dodgeFrames = 0, maxDodgeFrames = 20, dodgeSpeed = 3;
+	
 	public boolean isInvulnerable = false;
+	public int invulnerabilityFrames = 0, maxInvulnerabilityFrames = 40;
 	
 	public Player(int x, int y, int width, int height, Spritesheet spritesheet) {
 		super(x, y, width, height, spritesheet);
@@ -57,6 +60,9 @@ public class Player extends Entity{
 		
 		this.gunRight = spritesheet.getSprite(8*16, 0, 16, 16);
 		this.gunLeft = spritesheet.getSprite(9*16, 0, 16, 16);
+		
+		this.dodgeSpriteRight = spritesheet.getSprite(32, 32, 16, 16);
+		this.dodgeSpriteLeft = spritesheet.getSprite(32+16, 32, 16, 16);
 		
 	}
 	
@@ -110,8 +116,15 @@ public class Player extends Entity{
 					dodgeFrames = 0;
 					speed = defaultSpeed;
 					dodge = false;
-					isInvulnerable = false;
 				}
+			}
+		}
+		
+		if (isInvulnerable) {
+			invulnerabilityFrames++;
+			if (invulnerabilityFrames >= maxInvulnerabilityFrames) {
+				invulnerabilityFrames = 0;
+				isInvulnerable = false;
 			}
 		}
 		
@@ -218,14 +231,22 @@ public class Player extends Entity{
 		if (!isDamaged) {
 			
 			if(dir == right_dir) {
-				g.drawImage(rightPlayer[animationIndex], this.getX() - Camera.x, this.getY() - Camera.y, null);
+				if (dodge) {
+					g.drawImage(this.dodgeSpriteRight, this.getX() - Camera.x, this.getY() - Camera.y, null);
+				} else {
+					g.drawImage(rightPlayer[animationIndex], this.getX() - Camera.x, this.getY() - Camera.y, null);
+				}
 				if (hasGun) {
 					g.drawImage(gunRight, 5 + this.getX() - Camera.x, 1+ this.getY() - Camera.y, null);
 				}
 			}
 			
 			else if(dir == left_dir) {
-				g.drawImage(leftPlayer[animationIndex], this.getX() - Camera.x, this.getY() - Camera.y, null);
+				if (dodge) {
+					g.drawImage(this.dodgeSpriteLeft, this.getX() - Camera.x, this.getY() - Camera.y, null);
+				} else {
+					g.drawImage(leftPlayer[animationIndex], this.getX() - Camera.x, this.getY() - Camera.y, null);
+				}
 				if (hasGun) {
 					g.drawImage(gunLeft, this.getX() - Camera.x - 5, 1 + this.getY() - Camera.y, null);
 				}
