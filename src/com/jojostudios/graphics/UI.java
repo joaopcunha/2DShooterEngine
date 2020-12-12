@@ -10,14 +10,16 @@ import com.jojostudios.main.Game;
 public class UI {
 	
 	public void render(Graphics g) {
-		g.setColor(Color.red);
-		g.fillRect(15, 5, 120, 16);
-		g.setColor(Color.green);
-		g.fillRect(15, 5, (int)((Game.player.life/Game.player.maxLife)*120), 16);
 		g.setColor(Color.black);
+		g.fillRect(15, 5, 120, 16);
+		g.fillRect(15, 25, 120, 16);
+		g.setColor(Color.red);
+		g.fillRect(15, 5, (int)((Game.player.life/Game.player.maxLife)*120), 16);
+		g.setColor(Color.green);
+		g.fillRect(15, 25, (int)((Game.player.stamina/Game.player.maxStamina)*120), 16);
+		System.out.println((Game.player.stamina/Game.player.maxStamina));
+		g.setColor(Color.white);
 		g.setFont(new Font("arial", Font.BOLD, 20));
-		g.drawString((int)Game.player.life+"/"+(int)Game.player.maxLife, 40, 20);
-		
 		g.drawString("Ammo: "+Game.player.ammo, 600, 20);
 	}
 	

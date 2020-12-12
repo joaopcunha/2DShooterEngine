@@ -31,6 +31,14 @@ public class Player extends Entity{
 	public double life = 100;
 	public double maxLife = 100;
 	
+	public double stamina = 100;
+	public double maxStamina = 100;
+	public double dodgeStaminaCost = 40;
+	public int staminaRefreshFrames = 0;
+	public int staminaMaxRefreshFrames = 30;
+	public int staminaRefreshCooldown = 60;
+	public int staminaRefreshCooldownFrames = 0;
+	
 	public int ammo = 0;
 	public boolean isDamaged = false;
 	private int damageFrames = 0;
@@ -106,16 +114,35 @@ public class Player extends Entity{
 			}
 		}
 		
+		if (!dodge) {
+			if (staminaRefreshCooldownFrames < staminaRefreshCooldown) {
+				staminaRefreshCooldownFrames++;
+			} else {
+				if (stamina < maxStamina) {
+					staminaRefreshFrames++;
+					if (staminaRefreshFrames >= staminaMaxRefreshFrames) {
+						staminaRefreshFrames = 0;
+						stamina+=10;
+					}
+				}
+			}
+		}
+		
 		if (dodge) {
-			isInvulnerable = true;
-			speed = dodgeSpeed;
-			if(dodgeFrames < maxDodgeFrames) {
-				System.out.println(dodgeFrames);
-				dodgeFrames++;
-				if (dodgeFrames == maxDodgeFrames) {
-					dodgeFrames = 0;
-					speed = defaultSpeed;
-					dodge = false;
+			staminaRefreshCooldownFrames=0;
+			if (stamina < dodgeStaminaCost) {
+				dodge = false;
+			} else {
+				isInvulnerable = true;
+				speed = dodgeSpeed;
+				if(dodgeFrames < maxDodgeFrames) {
+					dodgeFrames++;
+					if (dodgeFrames == maxDodgeFrames) {
+						dodgeFrames = 0;
+						speed = defaultSpeed;
+						dodge = false;
+						stamina-=dodgeStaminaCost;
+					}
 				}
 			}
 		}
