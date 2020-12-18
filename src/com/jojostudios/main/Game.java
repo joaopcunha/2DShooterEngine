@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferInt;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -54,6 +55,8 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	
 	public static int CUR_LEVEL = 1, MAX_LEVEL = 2;
 	
+	public static int[] pixels;
+	
 	public Game() {
 		rand = new Random();
 		addKeyListener(this);
@@ -78,6 +81,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	private static void initGame() {
 		ui = new UI();
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+		pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
 		entities = new ArrayList<Entity>();
 		enemies = new ArrayList<Enemy>();
 		spritesheet = new Spritesheet("/Spritesheet.png");

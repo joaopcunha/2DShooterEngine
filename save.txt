@@ -1,0 +1,4 @@
+level:;
+life:;::
+playerX:;@B
+playerY:=C

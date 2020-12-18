@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 import com.jojostudios.entities.Ammo;
 import com.jojostudios.entities.Enemy;
 import com.jojostudios.entities.Entity;
+import com.jojostudios.entities.GunEnemy;
 import com.jojostudios.entities.HealthPack;
 import com.jojostudios.entities.Weapon;
 import com.jojostudios.main.Game;
@@ -43,7 +44,7 @@ public class World {
 						Game.player.setX(xx*16);
 						Game.player.setY(yy*16);
 					} else if (pixels[currentPixel] == 0xFFFF0000) {
-						Enemy en = new Enemy(xx*16, yy*16, 16, 16, Entity.ENEMY_EN);
+						Enemy en = new GunEnemy(xx*16, yy*16, 16, 16, Entity.ENEMY_EN);
 						Game.entities.add(en);
 						Game.enemies.add(en);
 					} else if (pixels[currentPixel] == 0xFFFF6A00) {

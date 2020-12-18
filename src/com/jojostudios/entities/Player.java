@@ -158,6 +158,7 @@ public class Player extends Entity{
 		this.checkCollisionLifePack();
 		this.checkCollisionAmmo();
 		this.checkCollisionWeapon();
+		this.checkCollisionEnemyBullet();
 		
 		if (isDamaged) {
 			this.damageFrames ++;
@@ -219,6 +220,20 @@ public class Player extends Entity{
 		}
 	}
 	
+	public void checkCollisionEnemyBullet() {
+		for(int i = 0; i < Game.bullets.size(); i++) {
+			Entity current = Game.bullets.get(i);
+			if (current instanceof EnemyBullet) {
+				if(Entity.isColliding(this, current)) {
+					life-=10;
+					isDamaged=true;
+					Game.bullets.remove(i);
+					return;
+				}
+			}
+		}
+	}
+	
 	public void mouseShoot(int mx, int my) {
 		double angle = Math.atan2(my - (this.getY() + 8 - Camera.y), mx - (this.getX() + 8 - Camera.x));
 		
@@ -227,7 +242,7 @@ public class Player extends Entity{
 		int px = 8, py = 8;
 		
 		if (hasGun && ammo > 0) {
-			Bullet bullet = new Bullet(px+this.getX(), py+this.getY(), 3, 3, null, dx, dy);
+			Bullet bullet = new PlayerBullet(px+this.getX(), py+this.getY(), 3, 3, null, dx, dy);
 			Game.bullets.add(bullet);
 			ammo--;
 		}
@@ -246,7 +261,7 @@ public class Player extends Entity{
 		}
 		
 		if (hasGun && ammo > 0) {
-			Bullet bullet = new Bullet(px+this.getX(), py+this.getY(), 3, 3, null, dx, dy);
+			Bullet bullet = new PlayerBullet(px+this.getX(), py+this.getY(), 3, 3, null, dx, dy);
 			Game.bullets.add(bullet);
 			ammo--;
 		}

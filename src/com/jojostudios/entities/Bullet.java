@@ -11,7 +11,7 @@ public class Bullet extends Entity{
 	
 	private double dx;
 	private double dy;
-	private double spd = 3;
+	protected double spd = 3;
 
 	public Bullet(int x, int y, int width, int height, BufferedImage sprite, double dx, double dy) {
 		super(x, y, width, height, sprite);
