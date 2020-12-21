@@ -16,7 +16,7 @@ import com.jojostudios.main.Game;
 
 public class World {
 	
-	private static Tile[] tiles;
+	public static Tile[] tiles;
 	public static int width, height;
 	public static final int TILE_SIZE = 16;
 	
@@ -44,7 +44,7 @@ public class World {
 						Game.player.setX(xx*16);
 						Game.player.setY(yy*16);
 					} else if (pixels[currentPixel] == 0xFFFF0000) {
-						Enemy en = new GunEnemy(xx*16, yy*16, 16, 16, Entity.ENEMY_EN);
+						Enemy en = new Enemy(xx*16, yy*16, 16, 16, Entity.ENEMY_EN);
 						Game.entities.add(en);
 						Game.enemies.add(en);
 					} else if (pixels[currentPixel] == 0xFFFF6A00) {
