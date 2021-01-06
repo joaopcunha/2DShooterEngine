@@ -58,6 +58,9 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	
 	public static int[] pixels;
 	
+	public static BufferedImage minimap;
+	public static int[] minimapPixels;
+	
 	public Game() {
 		rand = new Random();
 		addKeyListener(this);
@@ -70,12 +73,17 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public static void restart() {
 		initGame();
 		world = new World("/level1.png");
+		minimap = new BufferedImage(World.width, World.height, BufferedImage.TYPE_INT_RGB);
+		minimapPixels = ((DataBufferInt)minimap.getRaster().getDataBuffer()).getData();
 	}
 	
 	public static void changeLevel(int nextLevel) {
 		initGame();
 		String newWorld = "level"+nextLevel+".png";
 		world = new World("/"+newWorld);
+		minimap = new BufferedImage(World.width, World.height, BufferedImage.TYPE_INT_RGB);
+		minimapPixels = ((DataBufferInt)minimap.getRaster().getDataBuffer()).getData();
+		
 		CUR_LEVEL=nextLevel;
 	}
 	
@@ -192,6 +200,9 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		} else if (gameState == "pause") {
 			pause.render(g);
 		}
+		
+		World.renderMinimap();
+		g.drawImage(minimap, 610, 370, world.width*5, world.height*5,null);
 		
 		bs.show();
 	}
