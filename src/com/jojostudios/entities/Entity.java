@@ -3,10 +3,12 @@ package com.jojostudios.entities;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.util.Comparator;
 
 import com.jojostudios.graphics.Spritesheet;
 import com.jojostudios.main.Game;
 import com.jojostudios.world.Camera;
+import com.jojostudios.world.Node;
 
 public class Entity {
 	
@@ -27,6 +29,8 @@ public class Entity {
 	private Spritesheet spritesheet;
 	
 	private int maskx, masky, maskw, maskh;
+	
+	public int depth;
 	
 	public Entity(int x, int y, int width, int height, BufferedImage sprite) {
 		this.x = x;
@@ -53,6 +57,19 @@ public class Entity {
 		this.maskw = width;
 		this.maskh = height;
 	}
+	
+	public static Comparator<Entity> nodeSorter = new Comparator<Entity>() {
+		@Override
+		public int compare(Entity n0, Entity n1) {
+			if(n1.depth < n0.depth) {
+				return +1;
+			}
+			if (n1.depth > n0.depth) {
+				return -1;
+			}
+			return 0;
+		}
+	};
 	
 	public void setMask(int maskx, int masky, int maskw, int maskh) {
 		this.maskx = maskx;

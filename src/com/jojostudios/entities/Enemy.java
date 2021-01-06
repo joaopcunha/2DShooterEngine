@@ -32,6 +32,7 @@ public class Enemy extends Entity{
 	}
 	
 	public void tick() {
+		depth = 0;
 		if(this.calculateDistance(this.getX(), this.getY(), Game.player.getX(), Game.player.getY()) < fieldOfView) {
 			if (this.isCollidingWithPlayer() == false) {
 				if ((int)x < Game.player.getX() && World.isFree((int)(x+speed), (int)y) &&

@@ -79,6 +79,7 @@ public class Player extends Entity{
 	}
 	
 	public void tick() {
+		depth = 1;
 		moving = false;
 		if (right && World.isFree((int)(x+speed), this.getY())) {
 			moving = true;
