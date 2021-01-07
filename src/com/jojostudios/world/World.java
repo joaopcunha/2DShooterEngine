@@ -21,6 +21,76 @@ public class World {
 	public static final int TILE_SIZE = 16;
 	
 	public World(String path) {
+//		this.generateMap(path);
+		generateRandomMap();
+	}
+	
+	private void generateRandomMap() {
+		Game.player.setX(0);
+		Game.player.setY(0);
+		width = 100;
+		height = 100;
+		tiles = new Tile[width*height];
+		
+		for(int xx = 0; xx < width; xx++) {
+			for(int yy = 0; yy < height; yy++) {
+				tiles[xx+(yy*width)] = new WallTile(xx*16, yy*16);
+			}
+		}
+		
+		int dir = 0;
+		int xx = 0;
+		int yy = 0;
+		
+		for(int i = 0; i < 500; i++) {
+			
+			if (i == 2) {
+				Game.entities.add(new Weapon(xx*16, yy*16, 16, 16, Entity.WEAPON_EN));
+			}
+			
+			if(Game.rand.nextInt(100) < 1) {
+				Game.entities.add(new Weapon(xx*16, yy*16, 16, 16, Entity.WEAPON_EN));
+			} else if (Game.rand.nextInt(100) < 2) {
+				Game.entities.add(new HealthPack(xx*16, yy*16, 16, 16, Entity.HEALTHPACK_EN));
+			} else if (Game.rand.nextInt(100) < 3) {
+				Game.entities.add(new Ammo(xx*16, yy*16, 16, 16, Entity.AMMO_EN));
+			} else if (Game.rand.nextInt(100) < 4) {
+				Enemy en = new Enemy(xx*16, yy*16, 16, 16, Entity.ENEMY_EN);
+				Game.entities.add(en);
+				Game.enemies.add(en);
+			}
+			
+			
+			tiles[xx+(yy*width)] = new FloorTile(xx*16, yy*16);
+			
+			if(dir==0) {
+				if(xx < width) {
+					xx++;
+				}
+			} else if (dir==1) {
+				if(xx > 0) {
+					xx--;
+				}
+			} else if (dir==2) {
+				if(yy < height) {
+					yy++;
+				}
+			} else if (dir==3) {
+				if(yy > 0) {
+					yy--;
+				}
+			}
+			
+			if(Game.rand.nextInt(100) < 30) {
+				dir = Game.rand.nextInt(4);
+			}
+			
+			
+		}
+				
+	}
+	
+	private void generateMap(String path) {
 		try {
 			BufferedImage map = ImageIO.read(getClass().getResource(path));
 			width = map.getWidth();
@@ -62,8 +132,13 @@ public class World {
 	}
 	
 	public static boolean isFree(int xnext, int ynext) {
+		
 		int x1 = xnext / TILE_SIZE;
 		int y1 = ynext / TILE_SIZE;
+		
+		if (x1 > width || x1 < 0 || y1 > height || y1 < 0) {
+			return false;
+		}
 		
 		int x2 = (xnext+TILE_SIZE-1)/TILE_SIZE;
 		int y2 = (ynext)/TILE_SIZE;
