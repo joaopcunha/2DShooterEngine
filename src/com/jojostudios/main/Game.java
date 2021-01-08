@@ -2,8 +2,12 @@ package com.jojostudios.main;
 
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -11,11 +15,13 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 import com.jojostudios.entities.Bullet;
@@ -106,6 +112,21 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		frame.add(this);
 		frame.setResizable(false);
 		frame.pack();
+		Image image = null;
+		
+		try {
+			image = ImageIO.read(getClass().getResource("/icon.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+//		Toolkit toolkit = Toolkit.getDefaultToolkit();
+//		Image cursorImage = toolkit.getImage(getClass().getResource("/crosshairs.png"));
+//		Cursor c = toolkit.createCustomCursor(cursorImage, new Point(0, 0), "img");
+//		
+//		frame.setCursor(c);
+		frame.setIconImage(image);
+		frame.setAlwaysOnTop(true);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
