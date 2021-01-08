@@ -74,6 +74,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		this.setPreferredSize(new Dimension(WIDTH*SCALE, HEIGHT*SCALE));
 		initFrame();
 		restart();
+//		Sound.music.play();
 	}
 	
 	public static void restart() {
