@@ -11,6 +11,7 @@ import com.jojostudios.entities.Enemy;
 import com.jojostudios.entities.Entity;
 import com.jojostudios.entities.GunEnemy;
 import com.jojostudios.entities.HealthPack;
+import com.jojostudios.entities.Wall;
 import com.jojostudios.entities.Weapon;
 import com.jojostudios.main.Game;
 
@@ -21,8 +22,8 @@ public class World {
 	public static final int TILE_SIZE = 16;
 	
 	public World(String path) {
-//		this.generateMap(path);
-		generateRandomMap();
+		this.generateMap(path);
+//		generateRandomMap();
 	}
 	
 	private void generateRandomMap() {
@@ -106,6 +107,8 @@ public class World {
 					// Wall or Floor?
 					if (pixels[currentPixel] == 0xFFFFFFFF) {
 						tiles[currentPixel] = new WallTile(xx*16, yy*16);
+						Wall wall = new Wall(xx*16, yy*16, 16, 16, Tile.TILE_WALL);
+						Game.entities.add(wall);
 					} else {
 						tiles[currentPixel] = new FloorTile(xx*16, yy*16);
 					}

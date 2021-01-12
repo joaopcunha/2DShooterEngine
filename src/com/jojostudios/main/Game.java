@@ -113,20 +113,6 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		frame.add(this);
 		frame.setResizable(false);
 		frame.pack();
-//		Image image = null;
-		
-//		try {
-//			image = ImageIO.read(getClass().getResource("/icon.png"));
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-		
-//		Toolkit toolkit = Toolkit.getDefaultToolkit();
-//		Image cursorImage = toolkit.getImage(getClass().getResource("/crosshairs.png"));
-//		Cursor c = toolkit.createCustomCursor(cursorImage, new Point(0, 0), "img");
-//		
-//		frame.setCursor(c);
-//		frame.setIconImage(image);
 		frame.setAlwaysOnTop(true);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -348,13 +334,13 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+
 		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
+
 		
 	}
 
@@ -366,7 +352,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+
 		
 	}
 

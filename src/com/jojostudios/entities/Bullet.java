@@ -2,10 +2,12 @@ package com.jojostudios.entities;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import com.jojostudios.main.Game;
 import com.jojostudios.world.Camera;
+import com.jojostudios.world.World;
 
 public class Bullet extends Entity{
 	
@@ -30,10 +32,28 @@ public class Bullet extends Entity{
 		if (this.getY() - Camera.y < 0 || this.getY() - Camera.y > Game.HEIGHT) {
 			destroySelf();
 		}
+		
+		if (checkCollisionWall()) {
+			destroySelf();
+		}
 	}
 	
 	public void destroySelf() {
 		Game.bullets.remove(this);
+	}
+	
+	public boolean checkCollisionWall() {
+		Rectangle bulletCurrent = new Rectangle(this.getX(), this.getY(), width, height);
+		for(int i = 0; i <= Game.entities.size()-1; i++) {
+			if (Game.entities.get(i) instanceof Wall) {
+				Rectangle wall = new Rectangle(Game.entities.get(i).getX(), Game.entities.get(i).getY(), 16, 16);
+				if(bulletCurrent.intersects(wall)) {
+					return true;
+				}
+			}
+		}
+		
+		return false;
 	}
 	
 	public void render(Graphics g) {
