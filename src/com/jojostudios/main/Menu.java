@@ -140,7 +140,6 @@ public class Menu {
 				String[] opt1 = {"level", "life"};
 				int[] opt2 = {Game.CUR_LEVEL, (int)Game.player.life};
 				saveGame(opt1, opt2, 10);
-				System.out.println("Jogo salvo");
 			}
 			
 			if (options[currentOption] == "Load game") {

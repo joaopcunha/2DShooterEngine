@@ -113,20 +113,20 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		frame.add(this);
 		frame.setResizable(false);
 		frame.pack();
-		Image image = null;
+//		Image image = null;
 		
-		try {
-			image = ImageIO.read(getClass().getResource("/icon.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			image = ImageIO.read(getClass().getResource("/icon.png"));
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 		
 //		Toolkit toolkit = Toolkit.getDefaultToolkit();
 //		Image cursorImage = toolkit.getImage(getClass().getResource("/crosshairs.png"));
 //		Cursor c = toolkit.createCustomCursor(cursorImage, new Point(0, 0), "img");
 //		
 //		frame.setCursor(c);
-		frame.setIconImage(image);
+//		frame.setIconImage(image);
 		frame.setAlwaysOnTop(true);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -174,11 +174,9 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 				changeLevel(CUR_LEVEL);
 			}
 		} else if (gameState == "game_over") {
-			System.out.println("Game Over");
 		} else if (gameState == "menu") {
 			menu.tick();
 		} else if (gameState == "pause") {
-			System.out.println("OLAA");
 			pause.tick();
 		}
 		
@@ -231,6 +229,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	
 	// Main game loop
 	public void run() {
+		requestFocus();
 		long lastTime = System.nanoTime();
 		double amountOfTicks = 60.0;
 		double ns = 1000000000/amountOfTicks;

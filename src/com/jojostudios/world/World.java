@@ -175,12 +175,12 @@ public class World {
 	
 	public static void renderMinimap() {
 		for(int i = 0; i < Game.minimapPixels.length; i++) {
-			Game.minimapPixels[i] = 0;
+			Game.minimapPixels[i] = 0x008000;
 		}
 		for(int xx = 0; xx < width; xx++) {
 			for(int yy = 0; yy < height; yy++) {
 				if(tiles[xx+(yy*width)] instanceof WallTile) {
-					Game.minimapPixels[xx+(yy*width)] = 0xFFFFFFFF;
+					Game.minimapPixels[xx+(yy*width)] = 0x2B2D2F;
 				}
 			}
 		}
