@@ -11,6 +11,7 @@ import com.jojostudios.entities.Enemy;
 import com.jojostudios.entities.Entity;
 import com.jojostudios.entities.GunEnemy;
 import com.jojostudios.entities.HealthPack;
+import com.jojostudios.entities.Portal;
 import com.jojostudios.entities.Wall;
 import com.jojostudios.entities.Weapon;
 import com.jojostudios.main.Game;
@@ -126,6 +127,10 @@ public class World {
 						Game.entities.add(new HealthPack(xx*16, yy*16, 16, 16, Entity.HEALTHPACK_EN));
 					} else if (pixels[currentPixel] == 0xFFFFD800) {
 						Game.entities.add(new Ammo(xx*16, yy*16, 16, 16, Entity.AMMO_EN));
+					} else if (pixels[currentPixel] == 0xFF42FF38) {
+						if (!Game.entities.stream().anyMatch(x -> x instanceof Portal)) {
+							Game.entities.add(new Portal(xx*16, yy*16, 16, 48, Entity.PORTAL_EN));
+						}
 					}
 				}
 			}

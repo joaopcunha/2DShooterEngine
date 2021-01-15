@@ -152,13 +152,6 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 				b.tick();
 			}
 			
-			if (enemies.size() == 0) {
-				CUR_LEVEL++;
-				if(CUR_LEVEL>MAX_LEVEL) {
-					CUR_LEVEL=1;
-				}
-				changeLevel(CUR_LEVEL);
-			}
 		} else if (gameState == "game_over") {
 		} else if (gameState == "menu") {
 			menu.tick();

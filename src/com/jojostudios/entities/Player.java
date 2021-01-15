@@ -161,6 +161,14 @@ public class Player extends Entity{
 		this.checkCollisionWeapon();
 		this.checkCollisionEnemyBullet();
 		
+		if (this.checkCollisionPortal()) {
+			Game.CUR_LEVEL++;
+			if(Game.CUR_LEVEL>Game.MAX_LEVEL) {
+				Game.CUR_LEVEL=1;
+			}
+			Game.changeLevel(Game.CUR_LEVEL);
+		}
+		
 		if (isDamaged) {
 			this.damageFrames ++;
 			if (this.damageFrames == 8) {
@@ -177,6 +185,20 @@ public class Player extends Entity{
 		
 		Camera.x = Camera.clamp(this.getX() - (Game.WIDTH/2), 0, World.width*16 - Game.WIDTH);
 		Camera.y = Camera.clamp(this.getY() - (Game.HEIGHT/2), 0, World.height*16 - Game.HEIGHT);
+	}
+	
+	public boolean checkCollisionPortal() {
+		for(int i = 0; i < Game.entities.size(); i++) {
+			Entity current = Game.entities.get(i);
+			if (current instanceof Portal) {
+				if(Entity.isColliding(this, current)) {
+					return true;
+				}
+			}
+		}
+		
+		return false;
+		
 	}
 	
 	public void checkCollisionAmmo() {
