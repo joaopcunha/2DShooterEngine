@@ -2,12 +2,8 @@ package com.jojostudios.main;
 
 import java.awt.Canvas;
 import java.awt.Color;
-import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Point;
-import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -15,18 +11,17 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 import com.jojostudios.entities.Bullet;
 import com.jojostudios.entities.Enemy;
 import com.jojostudios.entities.Entity;
+import com.jojostudios.entities.Npc;
 import com.jojostudios.entities.Player;
 import com.jojostudios.graphics.Spritesheet;
 import com.jojostudios.graphics.UI;
@@ -52,6 +47,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public static World world;
 	
 	public static Player player;
+	public static Npc npc;
 	
 	public static Random rand;
 	
@@ -60,7 +56,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public static Pause pause;
 	public static String gameState = "menu";
 	
-	public static int CUR_LEVEL = 1, MAX_LEVEL = 2;
+	public static int CUR_LEVEL = 0, MAX_LEVEL = 2;
 	
 	public static int[] pixels;
 	
@@ -79,7 +75,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	
 	public static void restart() {
 		initGame();
-		world = new World("/level1.png");
+		world = new World("/level0.png");
 		minimap = new BufferedImage(World.width, World.height, BufferedImage.TYPE_INT_RGB);
 		minimapPixels = ((DataBufferInt)minimap.getRaster().getDataBuffer()).getData();
 	}
@@ -102,6 +98,9 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		enemies = new ArrayList<Enemy>();
 		spritesheet = new Spritesheet("/Spritesheet.png");
 		player = new Player(0, 0, 16, 16, spritesheet);
+		npc = new Npc(0, 0, 16, 16, Entity.NPC_EN);
+		
+		entities.add(npc);
 		entities.add(player);
 		bullets = new ArrayList<Bullet>();
 		menu = new Menu();
@@ -255,6 +254,10 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			
 			if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 				player.shoot();
+			}
+			
+			if (e.getKeyCode() == KeyEvent.VK_Q) {
+				player.interact();
 			}
 			
 			if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {

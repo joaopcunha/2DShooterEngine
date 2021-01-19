@@ -19,6 +19,7 @@ public class Entity {
 	public static BufferedImage WEAPON_LEFT = Game.spritesheet.getSprite(8*16, 0, 16, 16);
 	public static BufferedImage WEAPON_RIGHT = Game.spritesheet.getSprite(9*16, 0, 16, 16);
 	public static BufferedImage PORTAL_EN = Game.spritesheet.getSprite(0, 32, 16, 48);
+	public static BufferedImage NPC_EN = Game.spritesheet.getSprite(16, 16, 16, 16);
 	
 	protected double x;
 	protected double y;

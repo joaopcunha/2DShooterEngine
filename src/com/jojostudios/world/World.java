@@ -9,8 +9,8 @@ import javax.imageio.ImageIO;
 import com.jojostudios.entities.Ammo;
 import com.jojostudios.entities.Enemy;
 import com.jojostudios.entities.Entity;
-import com.jojostudios.entities.GunEnemy;
 import com.jojostudios.entities.HealthPack;
+import com.jojostudios.entities.Npc;
 import com.jojostudios.entities.Portal;
 import com.jojostudios.entities.Wall;
 import com.jojostudios.entities.Weapon;
@@ -105,7 +105,6 @@ public class World {
 				for (int yy = 0; yy < height ; yy++) {
 					int currentPixel = xx + (yy*width);
 					
-					// Wall or Floor?
 					if (pixels[currentPixel] == 0xFFFFFFFF) {
 						tiles[currentPixel] = new WallTile(xx*16, yy*16);
 						Wall wall = new Wall(xx*16, yy*16, 16, 16, Tile.TILE_WALL);
@@ -121,7 +120,11 @@ public class World {
 						Enemy en = new Enemy(xx*16, yy*16, 16, 16, Entity.ENEMY_EN);
 						Game.entities.add(en);
 						Game.enemies.add(en);
-					} else if (pixels[currentPixel] == 0xFFFF6A00) {
+					} else if (pixels[currentPixel] == 0xFF70187F) {
+						Game.npc.setX(xx*16);
+						Game.npc.setY(yy*16);
+					}
+					else if (pixels[currentPixel] == 0xFFFF6A00) {
 						Game.entities.add(new Weapon(xx*16, yy*16, 16, 16, Entity.WEAPON_EN));
 					} else if (pixels[currentPixel] == 0xFFFF7FED) {
 						Game.entities.add(new HealthPack(xx*16, yy*16, 16, 16, Entity.HEALTHPACK_EN));

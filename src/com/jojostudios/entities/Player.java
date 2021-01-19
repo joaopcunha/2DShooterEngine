@@ -271,6 +271,12 @@ public class Player extends Entity{
 		}
 	}
 	
+	public void interact() {
+		if(Game.npc.talkRange) {
+			Game.npc.talkStep++;
+		}
+	}
+	
 	public void shoot() {
 		int dx = 0;
 		int dy = 0;
