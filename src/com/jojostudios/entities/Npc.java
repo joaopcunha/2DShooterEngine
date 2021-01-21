@@ -9,21 +9,20 @@ import com.jojostudios.main.Game;
 
 public class Npc extends Entity{
 	
-	public String[] phrases = new String[5];
+	public static String[] tutorialPhrases1 = new String[] {"Hello, welcome to the game!", "Use W/S/A/D to move around"};
+	public static String[] tutorialPhrases2 = new String[] {"Use your mouse to aim and shoot"};
+	public static String[] tutorialPhrases3 = new String[] {"Use E to dodge, pay atention to your stamina"};
+	public String[] phrases;
 	public boolean talkRange = false;
 	public int talkStep = 0;
 	public int maxTalkSteps;
 	
 	public int curIndex = 0;
 
-	public Npc(int x, int y, int width, int height, BufferedImage sprite) {
+	public Npc(int x, int y, int width, int height, BufferedImage sprite, String[] phrases) {
 		super(x, y, width, height, sprite);
-		phrases[0] = "Hello, welcome to the game!";
-		phrases[1] = "Use W/S/A/D to move around";
-		phrases[2] = "Use your mouse to aim and shoot";
-		phrases[3] = "Use E to dodge, pay atention to your stamina";
-		phrases[4] = "Good luck!";
-		maxTalkSteps = phrases.length;
+		this.phrases = phrases;
+		this.maxTalkSteps = phrases.length;
 	}
 	
 	public void tick() {

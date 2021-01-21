@@ -272,9 +272,12 @@ public class Player extends Entity{
 	}
 	
 	public void interact() {
-		if(Game.npc.talkRange) {
-			Game.npc.curIndex = 0;
-			Game.npc.talkStep++;
+		for(int i = 0; i < Game.entities.size(); i++) {
+			Entity e = Game.entities.get(i);
+			if (e instanceof Npc) {
+				((Npc) e).curIndex = 0;
+				((Npc) e).talkStep++;
+			}
 		}
 	}
 	

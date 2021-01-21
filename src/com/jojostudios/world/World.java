@@ -121,8 +121,8 @@ public class World {
 						Game.entities.add(en);
 						Game.enemies.add(en);
 					} else if (pixels[currentPixel] == 0xFF70187F) {
-						Game.npc.setX(xx*16);
-						Game.npc.setY(yy*16);
+						Game.tutorialNpc1.setX(xx*16);
+						Game.tutorialNpc1.setY(yy*16);
 					}
 					else if (pixels[currentPixel] == 0xFFFF6A00) {
 						Game.entities.add(new Weapon(xx*16, yy*16, 16, 16, Entity.WEAPON_EN));

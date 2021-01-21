@@ -47,7 +47,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public static World world;
 	
 	public static Player player;
-	public static Npc npc;
+	public static Npc tutorialNpc1;
 	
 	public static Random rand;
 	
@@ -98,9 +98,9 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		enemies = new ArrayList<Enemy>();
 		spritesheet = new Spritesheet("/Spritesheet.png");
 		player = new Player(0, 0, 16, 16, spritesheet);
-		npc = new Npc(0, 0, 16, 16, Entity.NPC_EN);
+		tutorialNpc1 = new Npc(0, 0, 16, 16, Entity.NPC_EN, Npc.tutorialPhrases1);
 		
-		entities.add(npc);
+		entities.add(tutorialNpc1);
 		entities.add(player);
 		bullets = new ArrayList<Bullet>();
 		menu = new Menu();
@@ -190,7 +190,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0, WIDTH*SCALE, HEIGHT*SCALE, null);
 		ui.render(g);
-		npc.renderDialog(g);
+		tutorialNpc1.renderDialog(g);
 		
 		if (gameState == "game_over") {
 			ui.renderGameOver(g);
