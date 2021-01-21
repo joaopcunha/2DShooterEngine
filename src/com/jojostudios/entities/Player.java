@@ -273,6 +273,7 @@ public class Player extends Entity{
 	
 	public void interact() {
 		if(Game.npc.talkRange) {
+			Game.npc.curIndex = 0;
 			Game.npc.talkStep++;
 		}
 	}

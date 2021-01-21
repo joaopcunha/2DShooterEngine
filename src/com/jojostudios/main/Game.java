@@ -190,6 +190,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0, WIDTH*SCALE, HEIGHT*SCALE, null);
 		ui.render(g);
+		npc.renderDialog(g);
 		
 		if (gameState == "game_over") {
 			ui.renderGameOver(g);
