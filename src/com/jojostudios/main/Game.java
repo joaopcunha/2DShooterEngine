@@ -25,6 +25,7 @@ import com.jojostudios.entities.Npc;
 import com.jojostudios.entities.Player;
 import com.jojostudios.graphics.Spritesheet;
 import com.jojostudios.graphics.UI;
+import com.jojostudios.world.Camera;
 import com.jojostudios.world.World;
 
 public class Game extends Canvas implements Runnable, KeyListener, MouseListener{
@@ -47,7 +48,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public static World world;
 	
 	public static Player player;
-	public static Npc tutorialNpc1;
+	public static Npc tutorialNpc1, tutorialNpc2, tutorialNpc3;
 	
 	public static Random rand;
 	
@@ -98,9 +99,13 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		enemies = new ArrayList<Enemy>();
 		spritesheet = new Spritesheet("/Spritesheet.png");
 		player = new Player(0, 0, 16, 16, spritesheet);
-		tutorialNpc1 = new Npc(0, 0, 16, 16, Entity.NPC_EN, Npc.tutorialPhrases1);
+		tutorialNpc1 = new Npc(0, 0, 16, 16, Entity.NPC_EN, Npc.TUTORIAL_PHRASES_1);
+		tutorialNpc2 = new Npc(0, 0, 16, 16, Entity.NPC_EN, Npc.TUTORIAL_PHRASES_2);
+		tutorialNpc3 = new Npc(0, 0, 16, 16, Entity.NPC_EN, Npc.TUTORIAL_PHRASES_3);
 		
 		entities.add(tutorialNpc1);
+		entities.add(tutorialNpc2);
+		entities.add(tutorialNpc3);
 		entities.add(player);
 		bullets = new ArrayList<Bullet>();
 		menu = new Menu();
@@ -190,7 +195,9 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0, WIDTH*SCALE, HEIGHT*SCALE, null);
 		ui.render(g);
-		tutorialNpc1.renderDialog(g);
+		tutorialNpc1.renderDialog(g, (tutorialNpc1.getX()-Camera.x)*SCALE, (tutorialNpc1.getY()-Camera.y)*SCALE);
+		tutorialNpc2.renderDialog(g, (tutorialNpc2.getX()-Camera.x-70)*SCALE, (tutorialNpc2.getY()-Camera.y)*SCALE);
+		tutorialNpc3.renderDialog(g, (tutorialNpc3.getX()-Camera.x)*SCALE, (tutorialNpc3.getY()-Camera.y)*SCALE);
 		
 		if (gameState == "game_over") {
 			ui.renderGameOver(g);
@@ -206,7 +213,6 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		bs.show();
 	}
 	
-	// Main game loop
 	public void run() {
 		requestFocus();
 		long lastTime = System.nanoTime();

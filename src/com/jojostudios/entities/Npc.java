@@ -6,12 +6,13 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import com.jojostudios.main.Game;
+import com.jojostudios.world.Camera;
 
 public class Npc extends Entity{
 	
-	public static String[] tutorialPhrases1 = new String[] {"Hello, welcome to the game!", "Use W/S/A/D to move around"};
-	public static String[] tutorialPhrases2 = new String[] {"Use your mouse to aim and shoot"};
-	public static String[] tutorialPhrases3 = new String[] {"Use E to dodge, pay atention to your stamina"};
+	public static String[] TUTORIAL_PHRASES_1 = new String[] {"Hello, welcome to the game!", "Use W/S/A/D to move around"};
+	public static String[] TUTORIAL_PHRASES_2 = new String[] {"Use your mouse to aim and shoot"};
+	public static String[] TUTORIAL_PHRASES_3 = new String[] {"Use E to dodge, pay atention to your stamina"};
 	public String[] phrases;
 	public boolean talkRange = false;
 	public int talkStep = 0;
@@ -50,11 +51,11 @@ public class Npc extends Entity{
 		super.render(g);
 	}
 	 
-	public void renderDialog(Graphics g) {
-		if(talkStep > 0) {
-			g.setFont(new Font("Arial", Font.BOLD, 19));
+	public void renderDialog(Graphics g, int xpos, int ypos) {
+		if(talkStep > 0 && talkStep <= maxTalkSteps) {
+			g.setFont(new Font("Arial", Font.BOLD, 20));
 			g.setColor(Color.black);
-			g.drawString(phrases[talkStep-1].substring(0, curIndex), (int)x+120, (int)y+50);
+			g.drawString(phrases[talkStep-1].substring(0, curIndex), xpos, ypos);
 		}
 	}
 	

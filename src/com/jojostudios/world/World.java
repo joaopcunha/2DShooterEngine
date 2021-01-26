@@ -7,10 +7,10 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import com.jojostudios.entities.Ammo;
+import com.jojostudios.entities.DummyEnemy;
 import com.jojostudios.entities.Enemy;
 import com.jojostudios.entities.Entity;
 import com.jojostudios.entities.HealthPack;
-import com.jojostudios.entities.Npc;
 import com.jojostudios.entities.Portal;
 import com.jojostudios.entities.Wall;
 import com.jojostudios.entities.Weapon;
@@ -123,6 +123,16 @@ public class World {
 					} else if (pixels[currentPixel] == 0xFF70187F) {
 						Game.tutorialNpc1.setX(xx*16);
 						Game.tutorialNpc1.setY(yy*16);
+					} else if (pixels[currentPixel] == 0xFF69187F) {
+						Game.tutorialNpc2.setX(xx*16);
+						Game.tutorialNpc2.setY(yy*16);
+					} else if (pixels[currentPixel] == 0xFF58187F) {
+						Game.tutorialNpc3.setX(xx*16);
+						Game.tutorialNpc3.setY(yy*16);
+					} else if (pixels[currentPixel] == 0xFFFFBCDC) {
+						DummyEnemy dumEn = new DummyEnemy(xx*16, yy*16, 16, 16, Entity.ENEMY_EN);
+						Game.entities.add(dumEn);
+						Game.enemies.add(dumEn);
 					}
 					else if (pixels[currentPixel] == 0xFFFF6A00) {
 						Game.entities.add(new Weapon(xx*16, yy*16, 16, 16, Entity.WEAPON_EN));
