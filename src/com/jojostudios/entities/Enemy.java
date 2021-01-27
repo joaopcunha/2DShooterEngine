@@ -160,6 +160,7 @@ public class Enemy extends Entity{
 					isDamaged = true;
 					life-=5;
 					Game.bullets.remove(i);
+					((PlayerBullet) e).destroySelf();
 					return;
 				}
 			}

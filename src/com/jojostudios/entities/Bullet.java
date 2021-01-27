@@ -26,11 +26,11 @@ public class Bullet extends Entity{
 		y+=dy*spd;
 		
 		if (this.getX() - Camera.x < 0 || this.getX() - Camera.x > Game.WIDTH) {
-			destroySelf();
+			fadeSelf();
 		}
 		
 		if (this.getY() - Camera.y < 0 || this.getY() - Camera.y > Game.HEIGHT) {
-			destroySelf();
+			fadeSelf();
 		}
 		
 		if (checkCollisionWall()) {
@@ -39,6 +39,11 @@ public class Bullet extends Entity{
 	}
 	
 	public void destroySelf() {
+		World.generateParticle(100, (int)x, (int)y);
+		Game.bullets.remove(this);
+	}
+	
+	public void fadeSelf() {
 		Game.bullets.remove(this);
 	}
 	

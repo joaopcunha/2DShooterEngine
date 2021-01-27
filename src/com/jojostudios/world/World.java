@@ -11,6 +11,7 @@ import com.jojostudios.entities.DummyEnemy;
 import com.jojostudios.entities.Enemy;
 import com.jojostudios.entities.Entity;
 import com.jojostudios.entities.HealthPack;
+import com.jojostudios.entities.Particle;
 import com.jojostudios.entities.Portal;
 import com.jojostudios.entities.Wall;
 import com.jojostudios.entities.Weapon;
@@ -90,6 +91,14 @@ public class World {
 			
 		}
 				
+	}
+	
+	public static void generateParticle(int amount, int x, int y) {
+		System.out.println("DESTRUIIIDO");
+		for(int i=0; i<amount; i++) {
+			Game.entities.add(new Particle(x, y, 1, 1, null));
+		}
+		
 	}
 	
 	private void generateMap(String path) {
